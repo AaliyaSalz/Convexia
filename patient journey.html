@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Journey with Convexia & Rare Village</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal:      #2A7B6F;
+    --teal-mid:  #1F6B62;
+    --teal-l:    #E8F5F3;
+    --apple-bg:  #F5F5F7;
+    --apple-card:#FFFFFF;
+    --apple-border: rgba(0,0,0,0.08);
+    --apple-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
+    --apple-shadow-hover: 0 8px 28px rgba(0,0,0,0.11), 0 2px 6px rgba(0,0,0,0.06);
+    --ink:       #1D1D1F;
+    --ink-2:     #3A3A3C;
+    --muted:     #6E6E73;
+    --muted-l:   #AEAEB2;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, 'Inter', BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    background: var(--apple-bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO — light, macOS style ── */
+  .hero {
+    background: var(--apple-bg);
+    padding: 80px 24px 56px;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid var(--apple-border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 55% at 50% 0%, rgba(42,123,111,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 20px;
+    background: var(--teal-l);
+    padding: 5px 14px;
+    border-radius: 999px;
+  }
+  .hero-eyebrow-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(34px, 5.5vw, 56px);
+    color: var(--ink);
+    line-height: 1.12;
+    max-width: 680px;
+    margin: 0 auto 18px;
+    letter-spacing: -0.02em;
+  }
+  .hero-title em { font-style: italic; color: var(--teal); }
+  .hero-sub {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 460px;
+    margin: 0 auto 40px;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+  .hero-badges {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .badge {
+    background: var(--apple-card);
+    border: 1px solid var(--apple-border);
+    color: var(--ink-2);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  /* ── PROMISE BAR ── */
+  .promise {
+    background: var(--teal-l);
+    border-bottom: 1px solid rgba(42,123,111,0.15);
+    padding: 16px 24px;
+    text-align: center;
+  }
+  .promise p {
+    color: var(--teal-mid);
+    font-size: 14px;
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.65;
+    font-weight: 400;
+  }
+  .promise strong { font-weight: 600; color: var(--teal-mid); }
+
+  /* ── MAIN ── */
+  .main {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .section-intro {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 36px;
+    line-height: 1.75;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+    padding: 12px 18px;
+    background: var(--apple-card);
+    border: 1px solid var(--apple-border);
+    border-radius: 12px;
+    box-shadow: var(--apple-shadow);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── STEPS ── */
+  .steps { display: flex; flex-direction: column; }
+  .step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 0 24px;
+    padding-bottom: 44px;
+  }
+  .step:last-child { padding-bottom: 0; }
+
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .step-num {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    flex-shrink: 0;
+    z-index: 1;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+  }
+  .step-line {
+    width: 1.5px;
+    flex: 1;
+    margin-top: 10px;
+    background: linear-gradient(to bottom, var(--apple-border) 60%, transparent);
+  }
+  .step:last-child .step-line { display: none; }
+
+  /* ── STEP CARD — frosted glass macOS style ── */
+  .step-card {
+    background: var(--apple-card);
+    border: 1px solid var(--apple-border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--apple-shadow);
+    margin-top: 0;
+    transition: box-shadow .2s;
+  }
+  .step-card:hover { box-shadow: var(--apple-shadow-hover); }
+
+  .step-card-header { padding: 22px 24px 18px; }
+  .step-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .step-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 21px;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .step-desc {
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.75;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--apple-border);
+  }
+
+  /* ── STEP BODY ── */
+  .step-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .step-body.three { grid-template-columns: 1fr 1fr 1fr; }
+  .step-body.single { grid-template-columns: 1fr; }
+
+  .step-body-item {
+    padding: 16px 24px;
+    border-right: 1px solid var(--apple-border);
+    border-bottom: 1px solid var(--apple-border);
+  }
+  .step-body.two .step-body-item:nth-child(even) { border-right: none; }
+  .step-body.two .step-body-item:nth-last-child(-n+2) { border-bottom: none; }
+
+  .step-body.three .step-body-item:nth-child(3n) { border-right: none; }
+  .step-body.three .step-body-item { border-bottom: none; }
+
+  .step-body.single .step-body-item { border-right: none; }
+  .step-body.single .step-body-item:last-child { border-bottom: none; }
+
+  .sbi-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--muted-l);
+    margin-bottom: 5px;
+  }
+  .sbi-text {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.65;
+  }
+
+  /* ── STAT CALLOUT ── */
+  .step-stat {
+    padding: 16px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    background: var(--apple-bg);
+    border-top: 1px solid var(--apple-border);
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    color: var(--ink);
+    line-height: 1;
+    flex-shrink: 0;
+    letter-spacing: -0.02em;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.65;
+    padding-top: 6px;
+  }
+  .stat-label strong { font-weight: 600; color: var(--ink); }
+
+  /* ── TWO PATH ── */
+  .two-path {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--apple-border);
+  }
+  .path-item {
+    padding: 18px 24px;
+    border-right: 1px solid var(--apple-border);
+  }
+  .path-item:last-child { border-right: none; }
+  .path-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .path-text { font-size: 13px; color: var(--ink-2); line-height: 1.65; }
+
+  /* ── ROLES ── */
+  .step-roles {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    padding: 14px 24px;
+    border-top: 1px solid var(--apple-border);
+    background: var(--apple-bg);
+    border-radius: 0 0 16px 16px;
+  }
+  .role-chip {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 1px solid;
+  }
+  .role-convexia { background: #EEF4FB; border-color: #C0D5ED; color: #2A5F8F; }
+  .role-rv       { background: #E8F5F3; border-color: #A8D8D0; color: #1F6B62; }
+  .role-provider { background: #F3F0FB; border-color: #C8B8E8; color: #5A3A8A; }
+  .role-you      { background: #FEF9EE; border-color: #E8D89A; color: #7A5A10; }
+
+  /* ── PATHWAYS ── */
+  .branch-intro { margin: 72px 0 24px; }
+  .branch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 12px;
+    margin-bottom: 64px;
+  }
+  .branch-card {
+    background: var(--apple-card);
+    border: 1px solid var(--apple-border);
+    border-radius: 14px;
+    padding: 20px 18px;
+    box-shadow: var(--apple-shadow);
+    transition: box-shadow .2s, transform .2s;
+  }
+  .branch-card:hover {
+    box-shadow: var(--apple-shadow-hover);
+    transform: translateY(-2px);
+  }
+  .branch-icon { font-size: 22px; margin-bottom: 10px; }
+  .branch-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 5px; }
+  .branch-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ── BOUNDARY ── */
+  .boundary {
+    background: var(--apple-card);
+    border: 1px solid var(--apple-border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--apple-shadow);
+    margin-bottom: 64px;
+  }
+  .boundary-header {
+    background: var(--teal-l);
+    padding: 22px 28px;
+    border-bottom: 1px solid rgba(42,123,111,0.15);
+  }
+  .boundary-header h2 {
+    font-family: 'DM Serif Display', serif;
+    color: var(--teal-mid);
+    font-size: 21px;
+    letter-spacing: -0.01em;
+  }
+  .boundary-header p {
+    color: var(--teal);
+    font-size: 13px;
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+  .boundary-cols { display: grid; grid-template-columns: 1fr 1fr; }
+  .boundary-col { padding: 22px 28px; }
+  .boundary-col:first-child { border-right: 1px solid var(--apple-border); }
+  .boundary-col-title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .will { color: var(--teal); }
+  .wont { color: #A04F6B; }
+  .boundary-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 11px;
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+  .boundary-item::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .will-item::before { background: var(--teal); }
+  .wont-item::before { background: #A04F6B; }
+
+  /* ── CLOSING ── */
+  .closing {
+    background: var(--apple-card);
+    border: 1px solid var(--apple-border);
+    border-radius: 20px;
+    padding: 56px 40px;
+    text-align: center;
+    box-shadow: var(--apple-shadow);
+  }
+  .closing h2 {
+    font-family: 'DM Serif Display', serif;
+    color: var(--ink);
+    font-size: 30px;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .closing p {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 420px;
+    margin: 0 auto 28px;
+    line-height: 1.75;
+    font-weight: 400;
+  }
+  .closing-logos {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .closing-logo {
+    background: var(--teal-l);
+    border: 1px solid rgba(42,123,111,0.2);
+    color: var(--teal-mid);
+    padding: 8px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 640px) {
+    .step { grid-template-columns: 40px 1fr; gap: 0 16px; }
+    .step-num { width: 40px; height: 40px; font-size: 14px; }
+    .step-body, .step-body.three, .step-body.two { grid-template-columns: 1fr; }
+    .step-body-item { border-right: none !important; }
+    .two-path { grid-template-columns: 1fr; }
+    .path-item { border-right: none; border-bottom: 1px solid var(--apple-border); }
+    .path-item:last-child { border-bottom: none; }
+    .boundary-cols { grid-template-columns: 1fr; }
+    .boundary-col:first-child { border-right: none; border-bottom: 1px solid var(--apple-border); }
+    .closing { padding: 36px 20px; }
+    .hero { padding: 56px 20px 48px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .branch-card, .step-card { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="hero-eyebrow-dot"></span>
+    Rare Village &nbsp;×&nbsp; Convexia
+  </div>
+  <h1 class="hero-title">Finding overlooked treatments<br>for rare diseases,<br><em>built around you.</em></h1>
+  <p class="hero-sub">What to expect working with Convexia through Rare Village.</p>
+  <div class="hero-badges">
+    <span class="badge">No diagnosis required to begin</span>
+    <span class="badge">Your physician stays in charge</span>
+    <span class="badge">Your data stays private</span>
+  </div>
+</section>
+
+<!-- PROMISE BAR -->
+<div class="promise">
+  <p>You deserve to know what's out there. <strong>Convexia helps you and your care team see options that might otherwise be missed</strong> — we search broadly so your physician doesn't have to start from scratch.</p>
+</div>
+
+<main class="main">
+
+  <p class="section-label">The journey</p>
+  <h2 class="section-title">What to expect, start to finish</h2>
+  <p class="section-intro">Every family's path is different, but the structure is the same. Here's what happens at each stage — and who's responsible for what.</p>
+
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot" style="background:#2A5F8F"></span>Convexia</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#1F6B62"></span>Rare Village</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#5A3A8A"></span>Your physician</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#7A5A10"></span>You &amp; your family</span>
+  </div>
+
+  <div class="steps">
+
+    <!-- STEP 1 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num" style="background:#2A7B6F">1</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-header">
+          <span class="step-tag" style="color:#2A7B6F">Getting started</span>
+          <h3 class="step-title">Referral from Rare Village</h3>
+          <p class="step-desc">Rare Village introduces your case to Convexia. You don't need a confirmed diagnosis to begin — unresolved symptoms, a suspected diagnosis, or simply not knowing your next step are all valid starting points.</p>
+        </div>
+        <div class="step-body two">
+          <div class="step-body-item">
+            <p class="sbi-label">What Rare Village shares</p>
+            <p class="sbi-text">Your diagnosis or symptoms, prior testing, current doctors, your goals, and any practical constraints like cost or travel ability</p>
+          </div>
+          <div class="step-body-item">
+            <p class="sbi-label">What happens next</p>
+            <p class="sbi-text">Convexia reviews the referral, confirms they can help, and reaches out to begin intake</p>
+          </div>
+        </div>
+        <div class="step-roles">
+          <span class="role-chip role-rv">Rare Village — makes the referral</span>
+          <span class="role-chip role-convexia">Convexia — confirms fit &amp; begins intake</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num" style="background:#3A6B9F">2</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-header">
+          <span class="step-tag" style="color:#3A6B9F">Getting organized</span>
+          <h3 class="step-title">Intake &amp; consent</h3>
+          <p class="step-desc">Convexia collects what they need to understand your situation. You can start with whatever records you have — missing records don't block the process. Convexia will identify what additional information would help most.</p>
+        </div>
+        <div class="step-body two">
+          <div class="step-body-item">
+            <p class="sbi-label">What you'll share</p>
+            <p class="sbi-text">Medical records you have, your goals — therapy, trial, diagnosis, or specialist — and practical constraints like cost, geography, or caregiver capacity</p>
+          </div>
+          <div class="step-body-item">
+            <p class="sbi-label">Consent</p>
+            <p class="sbi-text">You formally agree to share your information before anything begins. You can ask questions, take your time, and withdraw at any point</p>
+          </div>
+          <div class="step-body-item">
+            <p class="sbi-label">Your data</p>
+            <p class="sbi-text">Never used to train AI models. Only the people working directly on your case can access your records</p>
+          </div>
+          <div class="step-body-item">
+            <p class="sbi-label">Output</p>
+            <p class="sbi-text">A structured intake file with your goals, available records, what's missing, and your clinician contacts</p>
+          </div>
+        </div>
+        <div class="step-roles">
+          <span class="role-chip role-you">You — share records &amp; goals</span>
+          <span class="role-chip role-convexia">Convexia — organizes the case</span>
+          <span class="role-chip role-provider">Your physician — provides records when available</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num" style="background:#6B4FA0">3</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-header">
+          <span class="step-tag" style="color:#6B4FA0">Behind the scenes</span>
+          <h3 class="step-title">Structuring your case</h3>
+          <p class="step-desc">Convexia organizes everything you've shared into a structured profile — building a timeline of your disease, mapping your genetics and symptoms, and identifying what data is missing that might change your options.</p>
+        </div>
+        <div class="step-body two">
+          <div class="step-body-item">
+            <p class="sbi-label">Disease timeline</p>
+            <p class="sbi-text">Onset, progression, major events, prior diagnoses, and treatments organized chronologically</p>
+          </div>
+          <div class="step-body-item">
+            <p class="sbi-label">Genetics &amp; phenotype</p>
+            <p class="sbi-text">Your genetic variants and symptoms mapped into structured terms the analysis can search against</p>
+          </div>
+          <div class="step-body-item">
+            <p class="sbi-label">Missing-data map</p>
+            <p class="sbi-text">A clear list of what information gaps exist and which ones — if filled — could open up new options</p>
+          </div>
+          <div class="step-body-item">
+            <p class="sbi-label">Practical constraints</p>
+            <p class="sbi-text">Cost, travel ability, trial willingness, and caregiver capacity built into the profile so recommendations reflect your real situation</p>
+          </div>
+        </div>
+        <div class="step-roles">
+          <span class="role-chip role-convexia">Convexia — structures the profile</span>
+          <span class="role-chip role-provider">Your physician — clarifies ambiguous information</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num" style="background:#A04F6B">4</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-header">
+          <span class="step-tag" style="color:#A04F6B">The search</span>
+          <h3 class="step-title">Evidence triage</h3>
+          <p class="step-desc">Convexia's AI searches a much wider landscape than any single physician has time to cover — looking across known therapies, drug repurposing possibilities, active clinical trials, specialist referrals, and practical support resources.</p>
+        </div>
+        <div class="step-body three">
+          <div class="step-body-item">
+            <p class="sbi-label">Therapies</p>
+            <p class="sbi-text">Known treatments and mechanism-linked options relevant to your disease</p>
+          </div>
+          <div class="step-body-item">
+            <p class="sbi-label">Drug repurposing</p>
+            <p class="sbi-text">Drugs approved for other conditions that may have relevance to yours</p>
+          </div>
+          <div class="step-body-item">
+            <p class="sbi-label">Clinical trials</p>
+            <p class="sbi-text">Active trials — including ones not widely publicized — that you may qualify for</p>
+          </div>
+          <div class="step-body-item">
+            <p class="sbi-label">Next tests</p>
+            <p class="sbi-text">High-yield tests that could open up new diagnostic or treatment options</p>
+          </div>
+          <div class="step-body-item">
+            <p class="sbi-label">Specialists</p>
+            <p class="sbi-text">Clinician types or institutions that should be part of your care</p>
+          </div>
+          <div class="step-body-item">
+            <p class="sbi-label">Support resources</p>
+            <p class="sbi-text">Advocacy groups, financial assistance, peer communities, and care navigation</p>
+          </div>
+        </div>
+        <div class="step-roles">
+          <span class="role-chip role-convexia">Convexia — runs the search &amp; generates triage report</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num" style="background:#C4783C">5</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-header">
+          <span class="step-tag" style="color:#C4783C">The decision point</span>
+          <h3 class="step-title">Actionability classification</h3>
+          <p class="step-desc">Based on the triage, Convexia classifies your case into one of two paths. This is not a judgment on your disease — it reflects what the current evidence supports and what's most useful for you right now.</p>
+        </div>
+        <div class="two-path">
+          <div class="path-item">
+            <p class="path-tag" style="color:#1F6B62">✓ &nbsp;Near-term actionable</p>
+            <p class="path-text">A potential therapy, trial, specialist, or high-yield test has been identified. Your case is ready to review with you and your physician.</p>
+          </div>
+          <div class="path-item">
+            <p class="path-tag" style="color:#5A3A8A">→ &nbsp;Deeper work required</p>
+            <p class="path-text">The first-pass search isn't sufficient to make responsible suggestions yet. A deeper analysis is needed — and Convexia will do it.</p>
+          </div>
+        </div>
+        <div class="step-stat">
+          <div class="stat-num">85%</div>
+          <p class="stat-label"><strong>of cases require deeper work</strong> — this is expected and normal, not a setback. It means your case is complex enough to deserve more thorough analysis before any next step is suggested.</p>
+        </div>
+        <div class="step-roles">
+          <span class="role-chip role-convexia">Convexia — classifies &amp; explains the path</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num" style="background:#4F8A5A">6</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-header">
+          <span class="step-tag" style="color:#4F8A5A">Making sense of it</span>
+          <h3 class="step-title">Report review meeting</h3>
+          <p class="step-desc">Convexia walks you through the findings in plain language — no jargon. This meeting is for you and your family. The goal is to leave with clarity and a concrete plan for what comes next.</p>
+        </div>
+        <div class="step-body two">
+          <div class="step-body-item">
+            <p class="sbi-label">What gets covered</p>
+            <p class="sbi-text">What was found, what it means in plain language, what the next steps are, and who is responsible for each one</p>
+          </div>
+          <div class="step-body-item">
+            <p class="sbi-label">What you leave with</p>
+            <p class="sbi-text">A shared navigation plan with named owners, open questions prepared for your physician, and resource connections where helpful</p>
+          </div>
+        </div>
+        <div class="step-roles">
+          <span class="role-chip role-convexia">Convexia — leads the meeting</span>
+          <span class="role-chip role-rv">Rare Village — supports &amp; connects resources</span>
+          <span class="role-chip role-you">You — ask everything</span>
+          <span class="role-chip role-provider">Your physician — reviews &amp; decides next steps</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PATHWAYS -->
+  <div class="branch-intro">
+    <p class="section-label">After the report</p>
+    <h2 class="section-title">Your pathway forward</h2>
+    <p class="section-intro">Your case is routed into the pathway — or combination of pathways — that makes the most sense. These aren't mutually exclusive; many families pursue more than one at once.</p>
+  </div>
+
+  <div class="branch-grid">
+    <div class="branch-card">
+      <div class="branch-icon">💊</div>
+      <p class="branch-name">Therapy</p>
+      <p class="branch-desc">Your physician evaluates a known or mechanism-linked therapy option identified in the triage</p>
+    </div>
+    <div class="branch-card">
+      <div class="branch-icon">🔬</div>
+      <p class="branch-name">Clinical trial</p>
+      <p class="branch-desc">You are screened against active trials and any eligibility gaps are worked through</p>
+    </div>
+    <div class="branch-card">
+      <div class="branch-icon">🧬</div>
+      <p class="branch-name">Testing</p>
+      <p class="branch-desc">Your clinician orders high-yield genetic, biomarker, or specialty testing that could change your options</p>
+    </div>
+    <div class="branch-card">
+      <div class="branch-icon">👩‍⚕️</div>
+      <p class="branch-name">Specialist</p>
+      <p class="branch-desc">You are connected to a specialist in genetics, neurology, metabolism, or immunology who can take the work further</p>
+    </div>
+    <div class="branch-card">
+      <div class="branch-icon">🤝</div>
+      <p class="branch-name">Resources</p>
+      <p class="branch-desc">You are connected to advocacy groups, financial support, peer communities, and care navigation</p>
+    </div>
+    <div class="branch-card">
+      <div class="branch-icon">📋</div>
+      <p class="branch-name">Deep dive</p>
+      <p class="branch-desc">Convexia performs deeper literature, mechanism, therapy, and trial analysis for complex cases</p>
+    </div>
+    <div class="branch-card">
+      <div class="branch-icon">🔄</div>
+      <p class="branch-name">Longitudinal monitoring</p>
+      <p class="branch-desc">Your case stays active. As new data emerges — labs, trials, symptoms — Convexia refreshes the analysis</p>
+    </div>
+  </div>
+
+  <!-- BOUNDARY -->
+  <div class="boundary">
+    <div class="boundary-header">
+      <h2>What Convexia will and won't do</h2>
+      <p>Understanding the boundaries clearly protects you and sets the right expectations from the start.</p>
+    </div>
+    <div class="boundary-cols">
+      <div class="boundary-col">
+        <p class="boundary-col-title will">✓ &nbsp;Convexia will</p>
+        <div class="boundary-item will-item">Collect and organize your records and history</div>
+        <div class="boundary-item will-item">Search broadly for therapies, trials, testing options, and specialists</div>
+        <div class="boundary-item will-item">Identify what information is missing and what it could unlock</div>
+        <div class="boundary-item will-item">Walk you through findings in plain language</div>
+        <div class="boundary-item will-item">Connect you to advocacy, financial, and peer resources</div>
+        <div class="boundary-item will-item">Track your case over time and refresh as new data emerges</div>
+        <div class="boundary-item will-item">Keep your data private — never used for AI training</div>
+      </div>
+      <div class="boundary-col">
+        <p class="boundary-col-title wont">✗ &nbsp;Convexia will not</p>
+        <div class="boundary-item wont-item">Diagnose your disease</div>
+        <div class="boundary-item wont-item">Prescribe or recommend a specific treatment</div>
+        <div class="boundary-item wont-item">Order labs, imaging, or genetic testing</div>
+        <div class="boundary-item wont-item">Tell you whether a therapy is right for you</div>
+        <div class="boundary-item wont-item">Replace your physician or manage your clinical care</div>
+        <div class="boundary-item wont-item">Promise a specific outcome from the analysis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <h2>You don't have to navigate this alone.</h2>
+    <p>Rare Village and Convexia are here to help you see what's possible — and to make sure the right people are in the room when decisions get made.</p>
+    <div class="closing-logos">
+      <span class="closing-logo">Rare Village</span>
+      <span class="closing-logo">Convexia</span>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
